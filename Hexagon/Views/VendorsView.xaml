@@ -1,0 +1,57 @@
+﻿<UserControl x:Class="Hexagon.VendorsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:local="clr-namespace:Hexagon"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <!-- DataTemplate (View) for Product Model -->
+        <DataTemplate DataType="{x:Type local:VendorModel}">
+            <Border BorderBrush="Black" BorderThickness="1" Padding="20">
+                <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Column="0" Grid.Row="0"  Text="ID" VerticalAlignment="Center" Margin="5" />
+                    <TextBox Grid.Row="0" Grid.Column="1"  Text="{Binding VendorID}" Margin="5" Width="150" />
+
+                    <TextBlock Grid.Column="0" Grid.Row="1"  Text="Name" VerticalAlignment="Center" Margin="5" />
+                    <TextBox Grid.Row="1" Grid.Column="1"  Text="{Binding VendorName}" Margin="5" Width="150" />
+                    <TextBlock Grid.Column="0" Grid.Row="2"  Text="Address" VerticalAlignment="Center" Margin="5" />
+                    <TextBox Grid.Row="2" Grid.Column="1"  Text="{Binding FullAddress}" Margin="5" Width="150" MaxLines="4" TextWrapping="Wrap" />
+                    <TextBlock Grid.Column="0" Grid.Row="3"  Text="Primary Phone" VerticalAlignment="Center" Margin="5" />
+                    <TextBox Grid.Row="3" Grid.Column="1"  Text="{Binding PrimaryPhone}" Margin="5" Width="150" MaxLines="4" />
+                    <TextBlock Grid.Column="0" Grid.Row="4"  Text="Mobile Phone" VerticalAlignment="Center" Margin="5" />
+                    <TextBox Grid.Row="4" Grid.Column="1"  Text="{Binding MobilePhone}" Margin="5" Width="150" MaxLines="4" />
+                </Grid>
+            </Border>
+        </DataTemplate>
+    </UserControl.Resources>
+
+    <DockPanel Margin="20">
+        <DockPanel DockPanel.Dock="Top">
+            <TextBlock Margin="10,2" DockPanel.Dock="Left" Text="Enter Vendor Id" VerticalAlignment="Center" />
+
+            <TextBox Margin="10,2" Width="50" VerticalAlignment="Center" Text="{Binding Path=VendorID, UpdateSourceTrigger=PropertyChanged}" />
+
+            <Button Content="Save Product" DockPanel.Dock="Right" Margin="10,2" VerticalAlignment="Center"
+                        Command="{Binding Path=SaveVendorCommand}" Width="100" />
+
+            <Button Content="Get Product" DockPanel.Dock="Right" Margin="10,2" VerticalAlignment="Center"
+                        Command="{Binding Path=GetVendorCommand}" IsDefault="True" Width="100" />
+        </DockPanel>
+
+        <ContentControl Margin="10" Content="{Binding Path=CurrentVendor}" />
+    </DockPanel>
+</UserControl>
