@@ -5,53 +5,41 @@
              xmlns:local="clr-namespace:Hexagon"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
-    <UserControl.Resources>
-        <!-- DataTemplate (View) for Product Model -->
-        <DataTemplate DataType="{x:Type local:VendorModel}">
-            <Border BorderBrush="Black" BorderThickness="1" Padding="20">
-                <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
-                    </Grid.RowDefinitions>
-
-                    <TextBlock Grid.Column="0" Grid.Row="0"  Text="ID" VerticalAlignment="Center" Margin="5" />
-                    <TextBox Grid.Row="0" Grid.Column="1"  Text="{Binding VendorID}" Margin="5" Width="150" />
-
-                    <TextBlock Grid.Column="0" Grid.Row="1"  Text="Name" VerticalAlignment="Center" Margin="5" />
-                    <TextBox Grid.Row="1" Grid.Column="1"  Text="{Binding VendorName}" Margin="5" Width="150" />
-                    <TextBlock Grid.Column="0" Grid.Row="2"  Text="Address" VerticalAlignment="Center" Margin="5" />
-                    <TextBox Grid.Row="2" Grid.Column="1"  Text="{Binding FullAddress}" Margin="5" Width="150" MaxLines="4" TextWrapping="Wrap" />
-                    <TextBlock Grid.Column="0" Grid.Row="3"  Text="Primary Phone" VerticalAlignment="Center" Margin="5" />
-                    <TextBox Grid.Row="3" Grid.Column="1"  Text="{Binding PrimaryPhone}" Margin="5" Width="150" MaxLines="4" />
-                    <TextBlock Grid.Column="0" Grid.Row="4"  Text="Mobile Phone" VerticalAlignment="Center" Margin="5" />
-                    <TextBox Grid.Row="4" Grid.Column="1"  Text="{Binding MobilePhone}" Margin="5" Width="150" MaxLines="4" />
-                </Grid>
-            </Border>
-        </DataTemplate>
-    </UserControl.Resources>
-
-    <DockPanel Margin="20">
-        <DockPanel DockPanel.Dock="Top">
-            <TextBlock Margin="10,2" DockPanel.Dock="Left" Text="Enter Vendor Id" VerticalAlignment="Center" />
-
-            <TextBox Margin="10,2" Width="50" VerticalAlignment="Center" Text="{Binding Path=VendorID, UpdateSourceTrigger=PropertyChanged}" />
-
-            <Button Content="Save Product" DockPanel.Dock="Right" Margin="10,2" VerticalAlignment="Center"
-                        Command="{Binding Path=SaveVendorCommand}" Width="100" />
-
-            <Button Content="Get Product" DockPanel.Dock="Right" Margin="10,2" VerticalAlignment="Center"
-                        Command="{Binding Path=GetVendorCommand}" IsDefault="True" Width="100" />
-        </DockPanel>
-
-        <ContentControl Margin="10" Content="{Binding Path=CurrentVendor}" />
-    </DockPanel>
+             d:DesignHeight="300" d:DesignWidth="600">
+        <Grid>
+            <StackPanel>
+                <ListView Margin="0" Height="Auto" Width="Auto" ItemsSource="{Binding Path=AllVendors}">
+                <ListView.Resources>
+                    <local:ColumnWidthConverter x:Key="cvConv"/>
+                </ListView.Resources>
+                <ListView.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem x:Name="cmVendorName" Header="Vendor Name" IsCheckable="True" IsChecked="True"/>
+                        <MenuItem x:Name="cmAddr1" Header="Address Line 1" IsCheckable="True" IsChecked="True"/>
+                        <MenuItem x:Name="cmAddr2" Header="Address Line 2" IsCheckable="True" IsChecked="False"/>
+                        <MenuItem x:Name="cmCity" Header="City" IsCheckable="True" IsChecked="True"/>
+                        <MenuItem x:Name="cmState" Header="State" IsCheckable="True" IsChecked="True"/>
+                        <MenuItem x:Name="cmPostal" Header="Postal Code" IsCheckable="True" IsChecked="False"/>
+                    </ContextMenu>
+                </ListView.ContextMenu>
+                    <ListView.View>
+                        <GridView >
+                            <GridViewColumn Header="Vendor ID" Width="Auto">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding VendorID}" TextAlignment="Right" Width="40"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn DisplayMemberBinding="{Binding Path=VendorName}" Header="Name" Width="{Binding Path=IsChecked, ElementName=cmVendorName, Converter={StaticResource cvConv}, ConverterParameter=100}"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=AddressLine1}" Header="Address Line 1"  Width="{Binding Path=IsChecked, ElementName=cmAddr1, Converter={StaticResource cvConv}, ConverterParameter=150}"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=AddressLine2}" Header="Address Line 2"  Width="{Binding Path=IsChecked, ElementName=cmAddr2, Converter={StaticResource cvConv}, ConverterParameter=150}"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=City}" Header="City"  Width="{Binding Path=IsChecked, ElementName=cmCity, Converter={StaticResource cvConv}, ConverterParameter=100}"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=State}" Header="State"  Width="{Binding Path=IsChecked, ElementName=cmState, Converter={StaticResource cvConv}, ConverterParameter=50}"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=PostalCode}" Header="Postal Code"  Width="{Binding Path=IsChecked, ElementName=cmPostal, Converter={StaticResource cvConv}, ConverterParameter=80}"/>
+                    </GridView>
+                    </ListView.View>
+                </ListView>
+            </StackPanel>
+        </Grid>
 </UserControl>

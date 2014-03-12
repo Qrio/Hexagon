@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Input;
 using System.Windows;
+using System.Collections.ObjectModel;
 
 namespace Hexagon
 {
@@ -13,6 +14,7 @@ namespace Hexagon
 
         private string _vendorID;
         private VendorModel _currentVendor;
+        private ObservableCollection<VendorModel> _allVendors;
         private ICommand _getVendorCommand;
         private ICommand _saveVendorCommand;
 
@@ -37,6 +39,26 @@ namespace Hexagon
                 }
             }
         }
+
+        public ObservableCollection<VendorModel> AllVendors
+        {
+            get
+            {
+                _allVendors = new ObservableCollection<VendorModel>();
+                _allVendors.Add(new VendorModel() { VendorID = "1", VendorName = "Rony Electronics", AddressLine1 = "MG Road", City = "Ernakulam", PostalCode = 667458, EMail = "rony@gmail.com", State="KL", IsActive=true });
+                _allVendors.Add(new VendorModel() { VendorID = "2", VendorName = "ABC Electronics", AddressLine1 = "Kazhakoottam", City = "Thiruvananthapuram", PostalCode = 619078, EMail = "abc_electronics@gmail.com", State = "KL", IsActive = true });
+                _allVendors.Add(new VendorModel() { VendorID = "3", VendorName = "Thiru Electronics", AddressLine1 = "Cathedral Road", City = "Chennai", PostalCode = 600021, EMail = "thiru@thiruelectronics.com", State = "TN", IsActive = true, PrimaryPhone=914423456787 });
+                _allVendors.Add(new VendorModel() { VendorID = "4", VendorName = "Kundan Electricals", AddressLine1 = "Old Mahabalipuram Road", AddressLine2="#456", City = "Chennai", PostalCode = 600043, EMail = "kundan@yahoo.com", State = "TN", PrimaryPhone=9144567893456, IsActive = false });
+                if (_allVendors != null && _allVendors.Count > 0)
+                {
+                    return _allVendors;
+                }
+                else
+                    return null;
+            }
+            set { }
+        }
+
         public ICommand SaveVendorCommand
         {
             get

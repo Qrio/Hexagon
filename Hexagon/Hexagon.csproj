@@ -54,6 +54,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Common\ApplicationViewModel.cs" />
+    <Compile Include="Common\ColumnWidthConverter.cs" />
     <Compile Include="Common\IPageViewModel.cs" />
     <Compile Include="Common\RelayCommand.cs" />
     <Compile Include="ViewModels\HomeViewModel.cs" />
