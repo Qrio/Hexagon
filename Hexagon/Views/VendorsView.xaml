@@ -12,22 +12,27 @@
                 <ListView.Resources>
                     <local:ColumnWidthConverter x:Key="cvConv"/>
                 </ListView.Resources>
-                <ListView.ContextMenu>
-                    <ContextMenu>
-                        <MenuItem x:Name="cmVendorName" Header="Vendor Name" IsCheckable="True" IsChecked="True"/>
-                        <MenuItem x:Name="cmAddr1" Header="Address Line 1" IsCheckable="True" IsChecked="True"/>
-                        <MenuItem x:Name="cmAddr2" Header="Address Line 2" IsCheckable="True" IsChecked="False"/>
-                        <MenuItem x:Name="cmCity" Header="City" IsCheckable="True" IsChecked="True"/>
-                        <MenuItem x:Name="cmState" Header="State" IsCheckable="True" IsChecked="True"/>
-                        <MenuItem x:Name="cmPostal" Header="Postal Code" IsCheckable="True" IsChecked="False"/>
-                    </ContextMenu>
-                </ListView.ContextMenu>
                     <ListView.View>
-                        <GridView >
+                        <GridView>
+                        <GridView.ColumnHeaderContextMenu>
+                            <ContextMenu>
+                                <MenuItem x:Name="cmVendorName" Header="Vendor Name" IsCheckable="True" IsChecked="True"/>
+                                <MenuItem x:Name="cmAddr1" Header="Address Line 1" IsCheckable="True" IsChecked="True"/>
+                                <MenuItem x:Name="cmAddr2" Header="Address Line 2" IsCheckable="True" IsChecked="False"/>
+                                <MenuItem x:Name="cmCity" Header="City" IsCheckable="True" IsChecked="True"/>
+                                <MenuItem x:Name="cmState" Header="State" IsCheckable="True" IsChecked="True"/>
+                                <MenuItem x:Name="cmPostal" Header="Postal Code" IsCheckable="True" IsChecked="False"/>
+                                <MenuItem x:Name="cmPriPhone" Header="Primary Phone" IsCheckable="True" IsChecked="True"/>
+                                <MenuItem x:Name="cmMobile" Header="Mobile Phone" IsCheckable="True" IsChecked="False"/>
+                                <MenuItem x:Name="cmeMail" Header="e-Mail" IsCheckable="True" IsChecked="False"/>
+                                <MenuItem x:Name="cmWebsite" Header="Website" IsCheckable="True" IsChecked="False"/>
+                                <MenuItem x:Name="cmStatus" Header="Status" IsCheckable="True" IsChecked="False"/>
+                            </ContextMenu>
+                        </GridView.ColumnHeaderContextMenu>
                             <GridViewColumn Header="Vendor ID" Width="Auto">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="{Binding VendorID}" TextAlignment="Right" Width="40"/>
+                                        <TextBlock Text="{Binding VendorID}" TextAlignment="Right" Width="Auto"/>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
@@ -36,7 +41,12 @@
                         <GridViewColumn DisplayMemberBinding="{Binding Path=AddressLine2}" Header="Address Line 2"  Width="{Binding Path=IsChecked, ElementName=cmAddr2, Converter={StaticResource cvConv}, ConverterParameter=150}"/>
                         <GridViewColumn DisplayMemberBinding="{Binding Path=City}" Header="City"  Width="{Binding Path=IsChecked, ElementName=cmCity, Converter={StaticResource cvConv}, ConverterParameter=100}"/>
                         <GridViewColumn DisplayMemberBinding="{Binding Path=State}" Header="State"  Width="{Binding Path=IsChecked, ElementName=cmState, Converter={StaticResource cvConv}, ConverterParameter=50}"/>
-                        <GridViewColumn DisplayMemberBinding="{Binding Path=PostalCode}" Header="Postal Code"  Width="{Binding Path=IsChecked, ElementName=cmPostal, Converter={StaticResource cvConv}, ConverterParameter=80}"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=PostalCode}" Header="Postal Code"  Width="{Binding Path=IsChecked, ElementName=cmPostal, Converter={StaticResource cvConv}, ConverterParameter=50}"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=PrimaryPhone}" Header="Primary Phone"  Width="{Binding Path=IsChecked, ElementName=cmPriPhone, Converter={StaticResource cvConv}, ConverterParameter=50}"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=MobilePhone}" Header="Mobile Phone"  Width="{Binding Path=IsChecked, ElementName=cmMobile, Converter={StaticResource cvConv}, ConverterParameter=50}"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=eMail}" Header="eMail"  Width="{Binding Path=IsChecked, ElementName=cmeMail, Converter={StaticResource cvConv}, ConverterParameter=120}"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=Website}" Header="Website"  Width="{Binding Path=IsChecked, ElementName=cmWebsite, Converter={StaticResource cvConv}, ConverterParameter=120}"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=IsActive}" Header="Is Active?"  Width="{Binding Path=IsChecked, ElementName=cmStatus, Converter={StaticResource cvConv}, ConverterParameter=35}"/>
                     </GridView>
                     </ListView.View>
                 </ListView>
