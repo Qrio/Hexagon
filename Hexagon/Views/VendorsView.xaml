@@ -8,14 +8,16 @@
              d:DesignHeight="300" d:DesignWidth="600">
         <Grid>
             <StackPanel>
-                <ListView Margin="0" Height="Auto" Width="Auto" ItemsSource="{Binding Path=AllVendors}">
+            <ListView Margin="0" Height="Auto" Width="Auto" ItemsSource="{Binding Path=AllVendors}">
                 <ListView.Resources>
                     <local:ColumnWidthConverter x:Key="cvConv"/>
+                    <local:GridViewColumnVisibilityManager x:Key="gvColVisMan"/>
                 </ListView.Resources>
                     <ListView.View>
                         <GridView>
                         <GridView.ColumnHeaderContextMenu>
                             <ContextMenu>
+                                <MenuItem x:Name="cmVendorID" Header="Vendor ID" IsEnabled="False" IsCheckable="True" IsChecked="True"/>
                                 <MenuItem x:Name="cmVendorName" Header="Vendor Name" IsCheckable="True" IsChecked="True"/>
                                 <MenuItem x:Name="cmAddr1" Header="Address Line 1" IsCheckable="True" IsChecked="True"/>
                                 <MenuItem x:Name="cmAddr2" Header="Address Line 2" IsCheckable="True" IsChecked="False"/>
@@ -27,6 +29,8 @@
                                 <MenuItem x:Name="cmeMail" Header="e-Mail" IsCheckable="True" IsChecked="False"/>
                                 <MenuItem x:Name="cmWebsite" Header="Website" IsCheckable="True" IsChecked="False"/>
                                 <MenuItem x:Name="cmStatus" Header="Status" IsCheckable="True" IsChecked="False"/>
+                                <Separator/>
+                                <MenuItem x:Name="cmTrack" Header="Tracking Fields" IsCheckable="True" IsChecked="False"/>
                             </ContextMenu>
                         </GridView.ColumnHeaderContextMenu>
                             <GridViewColumn Header="Vendor ID" Width="Auto">
@@ -36,17 +40,21 @@
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
-                            <GridViewColumn DisplayMemberBinding="{Binding Path=VendorName}" Header="Name" Width="{Binding Path=IsChecked, ElementName=cmVendorName, Converter={StaticResource cvConv}, ConverterParameter=100}"/>
-                        <GridViewColumn DisplayMemberBinding="{Binding Path=AddressLine1}" Header="Address Line 1"  Width="{Binding Path=IsChecked, ElementName=cmAddr1, Converter={StaticResource cvConv}, ConverterParameter=150}"/>
-                        <GridViewColumn DisplayMemberBinding="{Binding Path=AddressLine2}" Header="Address Line 2"  Width="{Binding Path=IsChecked, ElementName=cmAddr2, Converter={StaticResource cvConv}, ConverterParameter=150}"/>
-                        <GridViewColumn DisplayMemberBinding="{Binding Path=City}" Header="City"  Width="{Binding Path=IsChecked, ElementName=cmCity, Converter={StaticResource cvConv}, ConverterParameter=100}"/>
-                        <GridViewColumn DisplayMemberBinding="{Binding Path=State}" Header="State"  Width="{Binding Path=IsChecked, ElementName=cmState, Converter={StaticResource cvConv}, ConverterParameter=50}"/>
-                        <GridViewColumn DisplayMemberBinding="{Binding Path=PostalCode}" Header="Postal Code"  Width="{Binding Path=IsChecked, ElementName=cmPostal, Converter={StaticResource cvConv}, ConverterParameter=50}"/>
-                        <GridViewColumn DisplayMemberBinding="{Binding Path=PrimaryPhone}" Header="Primary Phone"  Width="{Binding Path=IsChecked, ElementName=cmPriPhone, Converter={StaticResource cvConv}, ConverterParameter=50}"/>
-                        <GridViewColumn DisplayMemberBinding="{Binding Path=MobilePhone}" Header="Mobile Phone"  Width="{Binding Path=IsChecked, ElementName=cmMobile, Converter={StaticResource cvConv}, ConverterParameter=50}"/>
-                        <GridViewColumn DisplayMemberBinding="{Binding Path=eMail}" Header="eMail"  Width="{Binding Path=IsChecked, ElementName=cmeMail, Converter={StaticResource cvConv}, ConverterParameter=120}"/>
-                        <GridViewColumn DisplayMemberBinding="{Binding Path=Website}" Header="Website"  Width="{Binding Path=IsChecked, ElementName=cmWebsite, Converter={StaticResource cvConv}, ConverterParameter=120}"/>
-                        <GridViewColumn DisplayMemberBinding="{Binding Path=IsActive}" Header="Is Active?"  Width="{Binding Path=IsChecked, ElementName=cmStatus, Converter={StaticResource cvConv}, ConverterParameter=35}"/>
+                            <GridViewColumn DisplayMemberBinding="{Binding Path=VendorName}" Header="Name" local:GridViewColumnVisibilityManager.IsVisible="{Binding Path=IsChecked, ElementName=cmVendorName}" />
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=AddressLine1}" Header="Address Line 1"  local:GridViewColumnVisibilityManager.IsVisible="{Binding Path=IsChecked, ElementName=cmAddr1}"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=AddressLine2}" Header="Address Line 2"  local:GridViewColumnVisibilityManager.IsVisible="{Binding Path=IsChecked, ElementName=cmAddr2}"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=City}" Header="City"  local:GridViewColumnVisibilityManager.IsVisible="{Binding Path=IsChecked, ElementName=cmCity}"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=State}" Header="State"  local:GridViewColumnVisibilityManager.IsVisible="{Binding Path=IsChecked, ElementName=cmState}"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=PostalCode}" Header="Postal Code"  local:GridViewColumnVisibilityManager.IsVisible="{Binding Path=IsChecked, ElementName=cmPostal}"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=PrimaryPhone}" Header="Primary Phone"  local:GridViewColumnVisibilityManager.IsVisible="{Binding Path=IsChecked, ElementName=cmPriPhone}"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=MobilePhone}" Header="Mobile Phone"  local:GridViewColumnVisibilityManager.IsVisible="{Binding Path=IsChecked, ElementName=cmMobile}"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=EMail}" Header="eMail"  local:GridViewColumnVisibilityManager.IsVisible="{Binding Path=IsChecked, ElementName=cmeMail}"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=Website}" Header="Website"  local:GridViewColumnVisibilityManager.IsVisible="{Binding Path=IsChecked, ElementName=cmWebsite}"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=IsActive}" Header="Is Active?"  local:GridViewColumnVisibilityManager.IsVisible="{Binding Path=IsChecked, ElementName=cmStatus}"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=CreateUser}" Header="Create User"  local:GridViewColumnVisibilityManager.IsVisible="{Binding Path=IsChecked, ElementName=cmTrack}"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=CreateTimestamp}" Header="Create Date/Time"  local:GridViewColumnVisibilityManager.IsVisible="{Binding Path=IsChecked, ElementName=cmTrack}"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=UpdateUser}" Header="Update User"  local:GridViewColumnVisibilityManager.IsVisible="{Binding Path=IsChecked, ElementName=cmTrack}"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=UpdateTimestamp}" Header="Update Date/Time"  local:GridViewColumnVisibilityManager.IsVisible="{Binding Path=IsChecked, ElementName=cmTrack}"/>
                     </GridView>
                     </ListView.View>
                 </ListView>

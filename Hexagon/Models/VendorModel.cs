@@ -202,6 +202,54 @@ namespace Hexagon
                 }
             }
         }
+        public string CreateUser
+        {
+            get {return _createUserID;}
+            set
+            {
+                if(value != _createUserID)
+                {
+                    _createUserID = value;
+                    OnPropertyChanged("CreateUser");
+                }
+            }
+        }
+        public string CreateTimestamp
+        {
+            get { return _createTimestamp.ToString(); }
+            set
+            {
+                if(value != _createTimestamp.ToString())
+                {
+                    _createTimestamp = DateTime.Parse(value);
+                    OnPropertyChanged("CreateTimestamp");
+                }
+            }
+        }
+        public string UpdateUser
+        {
+            get { return _updateUserID; }
+            set
+            {
+                if (value != _updateUserID)
+                {
+                    _updateUserID = value;
+                    OnPropertyChanged("UpdateUser");
+                }
+            }
+        }
+        public string UpdateTimestamp
+        {
+            get { return _updateTimestamp.ToString(); }
+            set
+            {
+                if (value != _updateTimestamp.ToString())
+                {
+                    _updateTimestamp = DateTime.Parse(value);
+                    OnPropertyChanged("UpdateTimestamp");
+                }
+            }
+        }
         #endregion // Properties
     }
 }
